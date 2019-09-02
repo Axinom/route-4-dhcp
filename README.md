@@ -33,6 +33,15 @@ Sample use
     option_249_route_0.0.0.0/0_via_192.168.88.1 : 0x00c0a85801
     aggregate_opt_121 : 0x080ac0a858020cac10c0a8580210c0a8c0a8580200c0a85801
     aggregate_opt_249 : 0x080ac0a858020cac10c0a8580210c0a8c0a8580200c0a85801
+    
+Sample use (Powershell)
+---------
+    PS C:\Tools\route-4-dhcp> .\Calculate-Route-Option-121.ps1  10.0.0.0/8, 192.168.88.2, 172.16.0.0/12, 192.168.88.2, 192.168.0.0/16, 192.168.88.2, 0.0.0.0/0, 192.168.88.1
+    Option 121 route 10.0.0.0/8 via 192.168.88.2 : 0x080ac0a85802
+    Option 121 route 172.16.0.0/12 via 192.168.88.2 : 0x0cac10c0a85802
+    Option 121 route 192.168.0.0/16 via 192.168.88.2 : 0x10c0a8c0a85802
+    Option 121 route 0.0.0.0/0 via 192.168.88.1 : 0x0000c0a85801
+    Aggregate option 121 : 0x080ac0a858020cac10c0a8580210c0a8c0a858020000c0a85801
 
 See more http://oldengremlin.blogspot.com/2016/10/routeros-dhcp.html
 
