@@ -14,8 +14,7 @@ param(
 $IpRegex = "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
 
 # Calculates the number of octets that need to be present in the option value. 
-# Currently supports only masks 8, 16, 24 and 32.
-function Get-NumberOfSignificantOctets([string]$subNetMask) {
+function Get-NumberOfSignificantOctets([int]$subNetMask) {
     if ($subNetMask -le 8) {
         return 1
     }
@@ -34,7 +33,7 @@ function Get-NumberOfSignificantOctets([string]$subNetMask) {
 }
 
 # Converts a number to base16, padding each result to 2 characters.
-function Convert-ToHexadecimal([string]$network) {
+function Convert-ToHexadecimal([int]$network) {
     if (!$network) {
         return "00"
     }
@@ -43,13 +42,13 @@ function Convert-ToHexadecimal([string]$network) {
         return "0"
     }
 
-    return '{0:x2}' -f [int] $network
+    $netw = '{0:x2}' -f $network
+    return $netw
 }
 
 $Net, $Gateway, $Aggregate = ""
 
 foreach ($Route in $Routes) {
-
     # Do not start the calculation of hex values before both values of the pair ($Net, $Gateway) have been filled.
     if (!$Net) { 
         $Net = $Route
@@ -71,7 +70,7 @@ foreach ($Route in $Routes) {
             $HexRouter = ""
 
             $NetworkLength = Convert-ToHexadecimal $SubnetMask
-
+     
             $SignificantOctets = Get-NumberOfSignificantOctets $SubnetMask
 
             if ($SignificantOctets -gt 0) {
@@ -99,5 +98,5 @@ foreach ($Route in $Routes) {
 }
 
 if ($Aggregate) {
-    Write-Output "Aggregate option 121 : $Aggregate"
+    Write-Output "Aggregate option 121 : 0x$Aggregate"
 }
