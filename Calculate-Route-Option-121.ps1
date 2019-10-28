@@ -34,11 +34,8 @@ function Get-NumberOfSignificantOctets([int]$subNetMask) {
 
 # Converts a number to base16, padding each result to 2 characters.
 function Convert-ToHexadecimal([int]$network) {
-    if (!$network) {
-        return "00"
-    }
     # Special case to get identical result with the Perl version of this script.
-    if ($network -eq "0") {
+    if ($network -eq 0) {
         return "0"
     }
 
