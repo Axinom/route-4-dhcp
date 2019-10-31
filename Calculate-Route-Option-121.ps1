@@ -60,10 +60,10 @@ foreach ($Route in $Routes) {
         # Calculate hex values only for correctly formatted addresses and networks.
         if ($SubnetMask -ge 0 -And $SubnetMask -le 32 -And $Network -match $IpRegex -And $Gateway -match $IpRegex) {
            
-            $Destination = $Network.split('\.')
+            $Destination = $Network.split('.')
             $HexDest = ""    
 
-            $Router = $Gateway.split('\.')
+            $Router = $Gateway.split('.')
             $HexRouter = ""
 
             $NetworkLength = Convert-ToHexadecimal $SubnetMask
@@ -75,7 +75,7 @@ foreach ($Route in $Routes) {
                     $HexDest += (Convert-ToHexadecimal $Destination[$index - 1])
                 }
             }
-
+            
             foreach ($r in $Router) {
                 $HexRouter += (Convert-ToHexadecimal $r)
             }
