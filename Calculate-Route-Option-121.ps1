@@ -15,7 +15,10 @@ $IpRegex = "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0
 
 # Calculates the number of octets that need to be present in the option value. 
 function Get-NumberOfSignificantOctets([int]$subNetMask) {
-    if ($subNetMask -le 8) {
+    if ($subNetMask -le 0) {
+        return 0
+    }
+    elseif ($subNetMask -le 8) {
         return 1
     }
     elseif ($subNetMask -le 16) {
@@ -34,11 +37,6 @@ function Get-NumberOfSignificantOctets([int]$subNetMask) {
 
 # Converts a number to base16, padding each result to 2 characters.
 function Convert-ToHexadecimal([int]$network) {
-    # Special case to get identical result with the Perl version of this script.
-    if ($network -eq 0) {
-        return "0"
-    }
-
     $netw = '{0:x2}' -f $network
     return $netw
 }
